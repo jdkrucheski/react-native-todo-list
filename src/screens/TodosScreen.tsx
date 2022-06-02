@@ -84,14 +84,14 @@ export const TodosScreen = ({route}: Props) => {
 
   if (loading) {
     return (
-      <View style={{flex: 1, backgroundColor: themeColors.primary}}>
+      <View style={{flex: 1, backgroundColor: themeColors.accent}}>
         <Loading />
       </View>
     );
   } else {
     return (
       <Animated.View style={styles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={themeColors.primary} />
+        <StatusBar animated={true} backgroundColor={themeColors.accent} />
         <Header
           title={listName}
           style={{width: '100%', height: 400}}
@@ -160,6 +160,6 @@ export const TodosScreen = ({route}: Props) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: themeColors.primary,
+    backgroundColor: themeColors.accent,
   },
 });

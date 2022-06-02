@@ -45,6 +45,6 @@ export const DrawerNavigation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: themeColors.primary,
+    backgroundColor: themeColors.accent,
   },
 });

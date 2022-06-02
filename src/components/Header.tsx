@@ -48,7 +48,7 @@ export const Header = ({
             }}>
             <Icon
               name="chevron-back-outline"
-              color={themeColors.neutral1}
+              color={themeColors.white}
               size={34}
             />
           </TouchableOpacity>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     width: '80%',
-    color: themeColors.neutral1,
+    color: themeColors.white,
   },
   status: {
     width: '100%',

@@ -25,7 +25,7 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 8,
-        borderBottomColor: themeColors.neutral2,
+        borderBottomColor: themeColors.secondary,
         borderBottomWidth: 1,
       }}>
       <TouchableOpacity
@@ -41,8 +41,8 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
           name={item.iconName}
           color={
             item.status !== 'closed'
-              ? themeColors.primary
-              : themeColors.neutral2
+              ? themeColors.accent
+              : themeColors.secondary
           }
           size={34}
         />
@@ -81,17 +81,17 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
 };
 const styles = StyleSheet.create({
   itemTitle: {
-    color: themeColors.neutral1,
+    color: themeColors.white,
     fontSize: 20,
   },
   itemTitleStrikeThrough: {
-    color: themeColors.neutral2,
+    color: themeColors.secondary,
     fontSize: 20,
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
   },
   itemSubTitle: {
     fontSize: 16,
-    color: themeColors.neutral3,
+    color: themeColors.neutral,
   },
 });

@@ -1,6 +1,6 @@
 import {useDrawerStatus} from '@react-navigation/drawer';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Animated, {FadeInDown} from 'react-native-reanimated';
 import {themeColors} from '../../App';
@@ -16,11 +16,6 @@ interface Props {
 export const Contend = ({children, action, save}: Props) => {
   const navigation = useNavigation();
   const drawer = useDrawerStatus();
-
-  useEffect(() => {
-    console.log('adentro menu', drawer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Animated.View style={styles.card} entering={FadeInDown.delay(200)}>
@@ -58,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30,
     paddingHorizontal: 10,
-    backgroundColor: themeColors.secondary,
+    backgroundColor: themeColors.primary,
     borderTopEndRadius: 24,
     borderTopStartRadius: 24,
   },
@@ -68,6 +63,6 @@ const styles = StyleSheet.create({
   menuContainer: {
     width: '100%',
     height: 48,
-    backgroundColor: themeColors.secondary,
+    backgroundColor: themeColors.primary,
   },
 });

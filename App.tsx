@@ -8,12 +8,11 @@ import {ListsProvider} from './src/context/lists/listsProvider';
 import {TodosProvider} from './src/context/todos/todosProvider';
 
 export const themeColors = {
-  primary: '#8d9bce', //'#8D8DAA', //#D885A3 ', //#F56D91', //'#F7F5F2',
-  secondary: '#121216',
-  neutral1: '#fff',
-  neutral2: '#2a2b33',
-  neutral3: 'rgba(255, 255, 255, 0.5)',
-  neutral4: 'rgba(18 , 18 , 22, 0.8)',
+  accent: '#8d9bce', //'#8D8DAA', //#D885A3 ', //#F56D91', //'#F7F5F2',
+  primary: '#121216',
+  secondary: '#2a2b33',
+  white: '#fff',
+  neutral: 'rgba(255, 255, 255, 0.5)',
 };
 
 export const App = () => {
@@ -29,12 +28,12 @@ export const App = () => {
             theme={{
               dark: true,
               colors: {
-                primary: themeColors.primary,
-                background: themeColors.primary,
-                card: themeColors.secondary,
-                text: themeColors.neutral1,
-                border: themeColors.secondary,
-                notification: themeColors.secondary,
+                primary: themeColors.accent,
+                background: themeColors.accent,
+                card: themeColors.primary,
+                text: themeColors.white,
+                border: themeColors.primary,
+                notification: themeColors.primary,
               },
             }}>
             <DrawerNavigation />

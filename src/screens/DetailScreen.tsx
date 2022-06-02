@@ -49,14 +49,14 @@ export const DetailScreen = ({route}: Props) => {
 
   if (!flag) {
     return (
-      <View style={{flex: 1, backgroundColor: themeColors.primary}}>
+      <View style={{flex: 1, backgroundColor: themeColors.accent}}>
         <Loading />
       </View>
     );
   } else {
     return (
       <Animated.View style={styles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={themeColors.primary} />
+        <StatusBar animated={true} backgroundColor={themeColors.accent} />
         {thisTodo && (
           <Header
             title={thisTodo?.name}
@@ -81,7 +81,7 @@ export const DetailScreen = ({route}: Props) => {
             style={styles.inputText}
             multiline={true}
             onChangeText={value => onChange(value, 'notes')}
-            placeholderTextColor={themeColors.secondary}
+            placeholderTextColor={themeColors.primary}
             placeholder={notes}
             value={notes}
             autoCorrect={false}
@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 8,
     marginHorizontal: 10,
-    backgroundColor: themeColors.primary,
+    backgroundColor: themeColors.accent,
     justifyContent: 'center',
-    shadowColor: themeColors.primary,
+    shadowColor: themeColors.accent,
     shadowOffset: {
       width: 0,
       height: 9,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     textAlign: 'center',
-    color: themeColors.neutral1,
+    color: themeColors.white,
     fontSize: 24,
     fontWeight: '500',
   },
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginTop: 16,
     borderRadius: 8,
-    color: themeColors.neutral1,
-    backgroundColor: themeColors.neutral2,
+    color: themeColors.white,
+    backgroundColor: themeColors.secondary,
   },
 });

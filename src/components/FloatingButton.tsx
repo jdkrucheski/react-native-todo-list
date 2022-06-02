@@ -21,15 +21,15 @@ export const FloatingButton = ({action, icon, position}: Props) => {
           borderRadius: 24,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: themeColors.primary,
+          backgroundColor: themeColors.accent,
           elevation: 4,
-          shadowColor: themeColors.neutral1,
+          shadowColor: themeColors.white,
           position: 'absolute',
           bottom: 6,
         },
         ubication,
       ]}>
-      <Icon name={icon} color={themeColors.neutral1} size={34} />
+      <Icon name={icon} color={themeColors.white} size={34} />
     </TouchableOpacity>
   );
 };

@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 30,
     borderWidth: 7,
-    borderTopColor: themeColors.neutral1,
-    borderRightColor: themeColors.neutral1,
-    borderBottomColor: themeColors.neutral1,
-    borderLeftColor: themeColors.secondary,
+    borderTopColor: themeColors.white,
+    borderRightColor: themeColors.white,
+    borderBottomColor: themeColors.white,
+    borderLeftColor: themeColors.primary,
   },
 });

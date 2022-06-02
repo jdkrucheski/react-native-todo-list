@@ -46,14 +46,14 @@ export const CustomModal = ({
               alignItems: 'flex-end',
               justifyContent: 'center',
             }}>
-            <Icon name="close-outline" color={themeColors.neutral3} size={38} />
+            <Icon name="close-outline" color={themeColors.neutral} size={38} />
           </TouchableOpacity>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.fromContainer}>
             <TextInput
               style={styles.input}
               onChangeText={value => onChange(value)}
-              placeholderTextColor={themeColors.neutral3}
+              placeholderTextColor={themeColors.neutral}
               placeholder={`Nombre de la ${title.toLocaleLowerCase()}`}
               autoCorrect={false}
               autoCapitalize="sentences"
@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 18,
     borderTopStartRadius: 18,
     minHeight: 240,
-    backgroundColor: themeColors.secondary,
+    backgroundColor: themeColors.primary,
     elevation: 4,
-    shadowColor: themeColors.neutral1,
+    shadowColor: themeColors.white,
     marginHorizontal: 20,
     padding: 10,
   },
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     width: '80%',
-    color: themeColors.neutral1,
+    color: themeColors.white,
   },
   fromContainer: {
     flex: 1,
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 16,
     borderRadius: 8,
-    color: themeColors.neutral1,
-    backgroundColor: themeColors.neutral2,
+    color: themeColors.white,
+    backgroundColor: themeColors.secondary,
   },
   btnContainer: {
     alignItems: 'center',
@@ -123,17 +123,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: themeColors.primary,
+    backgroundColor: themeColors.accent,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
     marginVertical: 2,
     elevation: 2,
-    shadowColor: themeColors.neutral1,
+    shadowColor: themeColors.white,
   },
   btnText: {
     fontSize: 18,
     marginLeft: 4,
-    color: themeColors.neutral1,
+    color: themeColors.white,
   },
 });

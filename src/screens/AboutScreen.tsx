@@ -23,14 +23,14 @@ export const AboutScreen = () => {
           source={require('../../android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png')}
         />
         <View style={styles.textContainer}>
-          <Text style={{fontSize: 18, color: themeColors.neutral1}}>
+          <Text style={{fontSize: 18, color: themeColors.white}}>
             Desarrollado por{' '}
           </Text>
           <Text
             style={{
               fontSize: 18,
               textDecorationLine: 'underline',
-              color: themeColors.primary,
+              color: themeColors.accent,
             }}
             onPress={() =>
               loadInBrowser('https://www.linkedin.com/in/jkrucheski/')
@@ -47,7 +47,7 @@ export const AboutScreen = () => {
             style={styles.btn}
             activeOpacity={0.8}
             onPress={() => loadInBrowser(sm.link)}>
-            <Icon name={sm.icon} color={themeColors.neutral1} size={24} />
+            <Icon name={sm.icon} color={themeColors.white} size={24} />
             <Text style={styles.text}>{sm.text}</Text>
           </TouchableOpacity>
         ))}
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: themeColors.secondary,
+    backgroundColor: themeColors.primary,
     borderRadius: 8,
     padding: 10,
     marginTop: 24,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: themeColors.secondary,
+    backgroundColor: themeColors.primary,
     borderRadius: 8,
     padding: 10,
     marginVertical: 4,
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     marginLeft: 12,
-    color: themeColors.neutral1,
+    color: themeColors.white,
   },
 });

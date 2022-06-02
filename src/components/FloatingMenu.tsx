@@ -23,7 +23,7 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
         padding: 0,
         backgroundColor: 'transparent',
         elevation: 2,
-        shadowColor: themeColors.neutral1,
+        shadowColor: themeColors.white,
       }}
       isVisible={showTip}
       content={
@@ -38,7 +38,7 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
               style={styles.btn}>
               <Icon
                 name={option.iconName}
-                color={themeColors.primary}
+                color={themeColors.accent}
                 size={18}
               />
               <Text style={styles.btnText}>{option.name}</Text>
@@ -59,7 +59,7 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
           alignItems: 'flex-end',
           justifyContent: 'center',
         }}>
-        <Icon name={iconName} color={themeColors.primary} size={34} />
+        <Icon name={iconName} color={themeColors.accent} size={34} />
       </TouchableOpacity>
     </Tooltip>
   );
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 5,
     borderRadius: 8,
-    backgroundColor: themeColors.secondary,
+    backgroundColor: themeColors.primary,
   },
   btn: {
     width: '100%',
@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     // borderWidth: 1,
     borderRadius: 8,
-    borderColor: themeColors.primary,
+    borderColor: themeColors.accent,
     marginVertical: 2,
   },
   btnText: {
     fontSize: 16,
     marginLeft: 4,
-    color: themeColors.neutral1,
+    color: themeColors.white,
   },
 });

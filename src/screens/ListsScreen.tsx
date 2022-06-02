@@ -67,14 +67,14 @@ export const ListsScreen = () => {
 
   if (loading) {
     return (
-      <View style={{flex: 1, backgroundColor: themeColors.primary}}>
+      <View style={{flex: 1, backgroundColor: themeColors.accent}}>
         <Loading />
       </View>
     );
   } else {
     return (
       <Animated.View style={styles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={themeColors.primary} />
+        <StatusBar animated={true} backgroundColor={themeColors.accent} />
         <Header title="Categorías" showBackButton={false} />
         <Contend
           action={() => {
@@ -139,7 +139,7 @@ export const ListsScreen = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: themeColors.primary,
+    backgroundColor: themeColors.accent,
   },
   btn: {
     width: 96,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: themeColors.secondary,
+    borderColor: themeColors.primary,
     marginVertical: 2,
   },
   btnText: {
