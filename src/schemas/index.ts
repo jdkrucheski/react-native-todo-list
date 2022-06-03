@@ -1,5 +1,7 @@
 export const TODO_SCHEMA = 'Todo';
 export const TODOLIST_SCHEMA = 'TodoList';
+export const COLOR_SCHEMA = 'Color';
+export const THEME_SCHEMA = 'Theme';
 
 export const TodoSchema = {
   name: TODO_SCHEMA,
@@ -13,7 +15,7 @@ export const TodoSchema = {
   },
 };
 
-export const Listschema = {
+export const ListSchema = {
   name: TODOLIST_SCHEMA,
   primaryKey: '_id',
   properties: {
@@ -24,7 +26,33 @@ export const Listschema = {
   },
 };
 
+export const ColorSchema = {
+  name: COLOR_SCHEMA,
+  properties: {
+    selected: {type: 'bool', default: false},
+    name: 'string',
+    accent: 'string',
+    primary: 'string',
+    secondary: 'string',
+    neutral: 'string',
+    white: 'string',
+  },
+};
+
+export const ThemeSchema = {
+  name: THEME_SCHEMA,
+  properties: {
+    isTheFirstOpening: 'bool',
+    colors: {type: 'list', objectType: COLOR_SCHEMA},
+  },
+};
+
 export const databaseOptions = {
   path: 'todoListApp.realm',
-  schema: [Listschema, TodoSchema],
+  schema: [ListSchema, TodoSchema],
+};
+
+export const databaseOptionsTheme = {
+  path: 'todoListAppThemes.realm',
+  schema: [ThemeSchema, ColorSchema],
 };

@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
 import {AboutScreen} from '../screens/AboutScreen';
 import {DrawerContent} from '../components/DrawerContent';
-import {StyleSheet} from 'react-native';
 import {StackNavigator} from './Stack';
-import {themeColors} from '../../App';
+import {ThemeContext} from '../context/theme/themeContext';
+import {ConfigScreen} from '../screens/ConfigScreen';
 
 const Drawer = createDrawerNavigator();
 
 export const DrawerNavigation = () => {
+  const {globalStyles} = useContext(ThemeContext);
+
   return (
-    <Animated.View style={styles.container}>
+    <Animated.View style={globalStyles.mainContainer}>
       <Drawer.Navigator
         initialRouteName="StackNavigator"
         screenOptions={{
@@ -37,14 +39,10 @@ export const DrawerNavigation = () => {
         <Drawer.Screen name="AboutScreen">
           {() => <AboutScreen />}
         </Drawer.Screen>
+        <Drawer.Screen name="ConfigScreen">
+          {() => <ConfigScreen />}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: themeColors.accent,
-  },
-});

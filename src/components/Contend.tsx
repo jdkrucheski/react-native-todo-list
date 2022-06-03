@@ -1,9 +1,9 @@
 import {useDrawerStatus} from '@react-navigation/drawer';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Animated, {FadeInDown} from 'react-native-reanimated';
-import {themeColors} from '../../App';
+import {ThemeContext} from '../context/theme/themeContext';
 import {FloatingButton} from './FloatingButton';
 
 interface Props {
@@ -16,12 +16,15 @@ interface Props {
 export const Contend = ({children, action, save}: Props) => {
   const navigation = useNavigation();
   const drawer = useDrawerStatus();
+  const {theme} = useContext(ThemeContext);
 
   return (
-    <Animated.View style={styles.card} entering={FadeInDown.delay(200)}>
+    <Animated.View
+      style={[styles.card, {backgroundColor: theme.colors.primary}]}
+      entering={FadeInDown.delay(200)}>
       <View style={styles.childrenContainer}>{children}</View>
-
-      <View style={styles.menuContainer}>
+      <View
+        style={[styles.menuContainer, {backgroundColor: theme.colors.primary}]}>
         <FloatingButton
           action={() => {
             navigation.dispatch(DrawerActions.openDrawer());
@@ -53,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30,
     paddingHorizontal: 10,
-    backgroundColor: themeColors.primary,
     borderTopEndRadius: 24,
     borderTopStartRadius: 24,
   },
@@ -63,6 +65,5 @@ const styles = StyleSheet.create({
   menuContainer: {
     width: '100%',
     height: 48,
-    backgroundColor: themeColors.primary,
   },
 });

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {FloatingMenu} from './FloatingMenu';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {themeColors} from '../../App';
 import Animated, {FadeInRight, FadeInLeft} from 'react-native-reanimated';
 import {Item, MenuOption} from '../interfaces/AppInterfaces';
+import {ThemeContext} from '../context/theme/themeContext';
 
 interface Props {
   index: number;
@@ -15,6 +15,8 @@ interface Props {
 }
 
 export const ListItems = ({item, action, options, secondaryAction}: Props) => {
+  const {theme, globalStyles} = useContext(ThemeContext);
+
   return (
     <Animated.View
       key={item.id}
@@ -25,7 +27,7 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 8,
-        borderBottomColor: themeColors.secondary,
+        borderBottomColor: theme.colors.secondary,
         borderBottomWidth: 1,
       }}>
       <TouchableOpacity
@@ -41,8 +43,8 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
           name={item.iconName}
           color={
             item.status !== 'closed'
-              ? themeColors.accent
-              : themeColors.secondary
+              ? theme.colors.accent
+              : theme.colors.secondary
           }
           size={34}
         />
@@ -66,32 +68,21 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
           numberOfLines={1}
           style={
             item.status !== 'closed'
-              ? styles.itemTitle
-              : styles.itemTitleStrikeThrough
+              ? [globalStyles.subTitle]
+              : [styles.itemTitleStrikeThrough, {color: theme.colors.secondary}]
           }>
           {item.title}
         </Text>
-        {item.subTitle && (
-          <Text style={styles.itemSubTitle}>{item.subTitle}</Text>
-        )}
+        {item.info && <Text style={globalStyles.textInfo}>{item.info}</Text>}
       </TouchableOpacity>
       <FloatingMenu id={item.id} options={options} iconName="menu-outline" />
     </Animated.View>
   );
 };
 const styles = StyleSheet.create({
-  itemTitle: {
-    color: themeColors.white,
-    fontSize: 20,
-  },
   itemTitleStrikeThrough: {
-    color: themeColors.secondary,
     fontSize: 20,
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
-  },
-  itemSubTitle: {
-    fontSize: 16,
-    color: themeColors.neutral,
   },
 });

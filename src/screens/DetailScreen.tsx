@@ -3,7 +3,6 @@ import {StyleSheet, StatusBar, TextInput, View, Keyboard} from 'react-native';
 import {Header} from '../components/Header';
 import {RootStackParams} from '../navigation/Stack';
 import {StackScreenProps} from '@react-navigation/stack';
-import {themeColors} from '../../App';
 import Animated, {FadeIn, FadeInRight} from 'react-native-reanimated';
 import {Contend} from '../components/Contend';
 import {useForm} from '../hooks/useForm';
@@ -11,6 +10,7 @@ import {Loading} from '../components/Loading';
 import {TodoInterface} from '../interfaces/AppInterfaces';
 import {editTodo, getTodo} from '../services/todos';
 import {TodosContext} from '../context/todos/todosContext';
+import {ThemeContext} from '../context/theme/themeContext';
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> {}
 
@@ -19,6 +19,7 @@ export const DetailScreen = ({route}: Props) => {
   const [flag, setFlag] = useState(false);
   const [thisTodo, setThisTodo] = useState<TodoInterface>();
   const {setTodos} = useContext(TodosContext);
+  const {theme, globalStyles} = useContext(ThemeContext);
 
   const {notes, onChange} = useForm({
     notes: '',
@@ -49,14 +50,14 @@ export const DetailScreen = ({route}: Props) => {
 
   if (!flag) {
     return (
-      <View style={{flex: 1, backgroundColor: themeColors.accent}}>
+      <View style={globalStyles.mainContainer}>
         <Loading />
       </View>
     );
   } else {
     return (
-      <Animated.View style={styles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={themeColors.accent} />
+      <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
+        <StatusBar animated={true} backgroundColor={theme.colors.accent} />
         {thisTodo && (
           <Header
             title={thisTodo?.name}
@@ -78,10 +79,10 @@ export const DetailScreen = ({route}: Props) => {
         />
         <Contend save={() => handleEdit()}>
           <TextInput
-            style={styles.inputText}
+            style={globalStyles.inputText}
             multiline={true}
             onChangeText={value => onChange(value, 'notes')}
-            placeholderTextColor={themeColors.primary}
+            placeholderTextColor={theme.colors.primary}
             placeholder={notes}
             value={notes}
             autoCorrect={false}
@@ -95,51 +96,11 @@ export const DetailScreen = ({route}: Props) => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-  btnContainer: {
-    flex: 4,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingBottom: 30,
-  },
-  btn: {
-    width: 130,
-    height: 60,
-    borderRadius: 8,
-    marginHorizontal: 10,
-    backgroundColor: themeColors.accent,
-    justifyContent: 'center',
-    shadowColor: themeColors.accent,
-    shadowOffset: {
-      width: 0,
-      height: 9,
-    },
-    shadowOpacity: 0.48,
-    shadowRadius: 11.95,
-    elevation: 6,
-  },
-  btnText: {
-    textAlign: 'center',
-    color: themeColors.white,
-    fontSize: 24,
-    fontWeight: '500',
-  },
   fieldContainer: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 5,
-  },
-  inputText: {
-    maxHeight: '60%',
-    paddingHorizontal: 10,
-    fontSize: 28,
-    marginTop: 16,
-    borderRadius: 8,
-    color: themeColors.white,
-    backgroundColor: themeColors.secondary,
   },
 });

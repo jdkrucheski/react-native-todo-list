@@ -12,8 +12,8 @@ import {ThemeContext} from '../context/theme/themeContext';
 import {useForm} from '../hooks/useForm';
 import {deleteList, editList, getLists, newList} from '../services/lists';
 
-export const ListsScreen = () => {
-  const navigation = useNavigation();
+export const ConfigScreen = () => {
+  // const navigation = useNavigation();
   const {data, loading, setLists} = useContext(ListsContext);
   const {theme, globalStyles} = useContext(ThemeContext);
   const {formValue, onChange} = useForm({formValue: ''});
@@ -58,13 +58,13 @@ export const ListsScreen = () => {
       .catch(err => setLists({data: [], loading: false, error: err}));
   };
 
-  const handleDelete = (id: string) => {
-    deleteList(id)
-      .then(res => {
-        res && setLists({data: res, loading: false, error: ''});
-      })
-      .catch(err => setLists({data: [], loading: false, error: err}));
-  };
+  // const handleDelete = (id: string) => {
+  //   deleteList(id)
+  //     .then(res => {
+  //       res && setLists({data: res, loading: false, error: ''});
+  //     })
+  //     .catch(err => setLists({data: [], loading: false, error: err}));
+  // };
 
   if (loading) {
     return (
@@ -76,51 +76,16 @@ export const ListsScreen = () => {
     return (
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
         <StatusBar animated={true} backgroundColor={theme.colors.accent} />
-        <Header title="Categorías" showBackButton={false} />
+        <Header
+          title="Configuraciones"
+          showBackButton={false}
+          numberOfLines={1}
+          ajustFontSize
+        />
         <Contend
           action={() => {
             setShowModal({showModal: true, type: 'NEW'});
           }}>
-          <List
-            items={data.map(l => {
-              return {
-                id: l._id.toString(),
-                iconName: 'at-circle-outline',
-                title: l.name,
-                info: `Tareas completas: ${
-                  l.todos?.filter(t => t.status === 'closed').length
-                }/${l.todos?.length}`,
-              };
-            })}
-            action={(id: string, name?: string) => {
-              navigation.navigate(
-                'TodosScreen' as never,
-                {
-                  listId: id,
-                  listName: name,
-                } as never,
-              );
-            }}
-            menuOptions={[
-              {
-                id: 0,
-                name: 'Editar',
-                iconName: 'build-outline',
-                action: (id: string) => {
-                  setToEditId(id);
-                  const aux = data.find(l => l._id.toString() === id);
-                  aux && onChange(aux?.name, 'formValue');
-                  setShowModal({showModal: true, type: 'EDIT'});
-                },
-              },
-              {
-                id: 1,
-                name: 'Eliminar',
-                iconName: 'trash-outline',
-                action: (id: string) => handleDelete(id),
-              },
-            ]}
-          />
           <CustomModal
             type={type}
             title="Nueva categoría"

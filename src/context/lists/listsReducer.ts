@@ -1,4 +1,4 @@
-import {TodoInterface, TodoListInterface} from '../../interfaces/AppInterfaces';
+import {TodoListInterface} from '../../interfaces/AppInterfaces';
 
 type ActionsTypes = 'SET_LISTS';
 
@@ -8,7 +8,7 @@ interface ListAction {
 }
 
 export interface ListState {
-  data: TodoListInterface[] | TodoInterface;
+  data: TodoListInterface[];
   loading: boolean;
   error: string;
 }

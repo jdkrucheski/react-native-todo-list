@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   ImageStyle,
   StyleProp,
@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 import Animated, {FadeInRight} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {themeColors} from '../../App';
+import {ThemeContext} from '../context/theme/themeContext';
 
 interface Props {
   title: string;
+  numberOfLines?: number;
+  ajustFontSize?: boolean;
   isEditable?: boolean;
   status?: string;
   style?: StyleProp<ImageStyle>;
@@ -22,9 +24,13 @@ interface Props {
 
 export const Header = ({
   title,
+  numberOfLines,
+  ajustFontSize,
   showBackButton = true,
   status = 'GUARDADO',
 }: Props) => {
+  const {theme, globalStyles} = useContext(ThemeContext);
+
   const navigation = useNavigation();
   return (
     <Animated.View entering={FadeInRight.delay(300)} style={styles.container}>
@@ -48,15 +54,16 @@ export const Header = ({
             }}>
             <Icon
               name="chevron-back-outline"
-              color={themeColors.white}
+              color={theme.colors.neutral}
               size={34}
             />
           </TouchableOpacity>
         )}
 
         <Text
-          numberOfLines={2}
-          style={{...styles.title, paddingLeft: showBackButton ? 0 : 10}}>
+          numberOfLines={numberOfLines}
+          adjustsFontSizeToFit={ajustFontSize}
+          style={{...globalStyles.title, paddingLeft: showBackButton ? 0 : 10}}>
           {title}
         </Text>
       </View>
@@ -77,12 +84,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    width: '80%',
-    color: themeColors.white,
   },
   status: {
     width: '100%',

@@ -1,5 +1,6 @@
 import React from 'react';
 import {AboutScreen} from '../screens/AboutScreen';
+import {ConfigScreen} from '../screens/ConfigScreen';
 import {ListsScreen} from '../screens/ListsScreen';
 
 export interface Pages {
@@ -22,6 +23,7 @@ export interface MenuItem {
 export const Pages: Pages = {
   Home: <ListsScreen />,
   About: <AboutScreen />,
+  Config: <ConfigScreen />,
 };
 
 export const menuItems: MenuItem[] = [
@@ -34,6 +36,11 @@ export const menuItems: MenuItem[] = [
     name: 'Acerca de',
     icon: 'information-circle-outline',
     component: 'AboutScreen',
+  },
+  {
+    name: 'Preferecias',
+    icon: 'cog-outline',
+    component: 'ConfigScreen',
   },
 ];
 
