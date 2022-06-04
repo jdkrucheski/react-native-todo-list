@@ -1,6 +1,6 @@
 import Realm from 'realm';
 import {
-  Status,
+  status,
   TodoInterface,
   TodoListInterface,
 } from '../interfaces/AppInterfaces';
@@ -13,7 +13,7 @@ export const insertNewTodo = (listId: string, name: string) =>
       name,
       deleted: false,
       notes: '',
-      status: 'open' as Status,
+      status: 'open' as status,
     };
     Realm.open(databaseOptions)
       .then(realm => {

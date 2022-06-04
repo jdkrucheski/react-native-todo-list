@@ -78,10 +78,6 @@ export const ThemeProvider = ({children}: any) => {
       backgroundColor: theme.colors.accent,
       justifyContent: 'center',
       shadowColor: theme.colors.accent,
-      shadowOffset: {
-        width: 0,
-        height: 9,
-      },
       shadowOpacity: 0.48,
       shadowRadius: 11.95,
       elevation: 6,

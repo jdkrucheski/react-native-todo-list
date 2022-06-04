@@ -15,21 +15,6 @@ export interface MenuOption {
   action?: (id: string) => void;
 }
 
-export interface Color {
-  name: string;
-  selected: boolean;
-  accent: string;
-  primary: string;
-  secondary: string;
-  neutral: string;
-  white: string;
-}
-
-// export interface ThemeInterface {
-//   isTheFirstOpening: boolean;
-//   colors: Color[];
-// }
-
 export interface TodoInterface {
   _id: object;
   deleted: boolean;
@@ -43,4 +28,10 @@ export interface TodoListInterface {
   deleted?: boolean;
   name: string;
   todos?: TodoInterface[];
+}
+export interface PreferencesInterface {
+  _id: object;
+  name: string;
+  selectedColor: string;
+  colors: string[];
 }

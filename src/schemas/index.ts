@@ -1,7 +1,7 @@
 export const TODO_SCHEMA = 'Todo';
 export const TODOLIST_SCHEMA = 'TodoList';
 export const COLOR_SCHEMA = 'Color';
-export const THEME_SCHEMA = 'Theme';
+export const PREFERENCES_SCHEMA = 'Preferences';
 
 export const TodoSchema = {
   name: TODO_SCHEMA,
@@ -26,24 +26,18 @@ export const ListSchema = {
   },
 };
 
-export const ColorSchema = {
-  name: COLOR_SCHEMA,
+export const PreferencesSchema = {
+  name: PREFERENCES_SCHEMA,
+  primaryKey: '_id',
   properties: {
-    selected: {type: 'bool', default: false},
-    name: 'string',
-    accent: 'string',
-    primary: 'string',
-    secondary: 'string',
-    neutral: 'string',
-    white: 'string',
-  },
-};
-
-export const ThemeSchema = {
-  name: THEME_SCHEMA,
-  properties: {
-    isTheFirstOpening: 'bool',
-    colors: {type: 'list', objectType: COLOR_SCHEMA},
+    _id: 'objectId',
+    name: {type: 'string', default: 'Humano'},
+    selectedColor: {type: 'string', default: '#8d9bce'},
+    colors: {
+      type: 'list',
+      objectType: 'string',
+      default: ['#8d9bce', '#F56D91', '#8D8DAA', '#D885A3 ', '#F7F5F2'],
+    },
   },
 };
 
@@ -52,7 +46,7 @@ export const databaseOptions = {
   schema: [ListSchema, TodoSchema],
 };
 
-export const databaseOptionsTheme = {
-  path: 'todoListAppThemes.realm',
-  schema: [ThemeSchema, ColorSchema],
+export const databaseOptionsPreferences = {
+  path: 'todoListAppPreferences.realm',
+  schema: [PreferencesSchema],
 };

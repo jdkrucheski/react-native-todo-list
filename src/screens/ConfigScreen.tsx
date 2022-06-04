@@ -1,70 +1,69 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useCallback, useContext, useState} from 'react';
-import {StatusBar, View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  Keyboard,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Animated, {FadeIn} from 'react-native-reanimated';
 import {Contend} from '../components/Contend';
-import {CustomModal} from '../components/CustomModal';
 import {Header} from '../components/Header';
-import {List} from '../components/List';
 import {Loading} from '../components/Loading';
-import {ListsContext} from '../context/lists/listsContext';
 import {ThemeContext} from '../context/theme/themeContext';
 import {useForm} from '../hooks/useForm';
-import {deleteList, editList, getLists, newList} from '../services/lists';
+import {
+  editPreferencesService,
+  getPreferencesService,
+} from '../services/preferences';
 
 export const ConfigScreen = () => {
-  // const navigation = useNavigation();
-  const {data, loading, setLists} = useContext(ListsContext);
   const {theme, globalStyles} = useContext(ThemeContext);
-  const {formValue, onChange} = useForm({formValue: ''});
-  const [toEditId, setToEditId] = useState('');
-  const [{showModal, type}, setShowModal] = useState({
-    showModal: false,
-    type: 'NEW' as 'NEW' | 'EDIT',
+
+  const {name, color, onChange} = useForm({name: '', color: ''});
+
+  const [{data, loading}, setPreferences] = useState({
+    data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+    loading: true,
+    error: '',
   });
 
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        const res = await getLists();
-        res && setLists({data: res, loading: false, error: ''});
-      };
-      fetchData().catch(err =>
-        setLists({data: [], loading: false, error: err}),
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getPreferencesService();
+        typeof res !== 'string' &&
+          setPreferences({data: res, loading: false, error: ''});
+      } catch (err) {
+        setPreferences({
+          data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+          loading: false,
+          error: 'Ocurrió un error',
+        });
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleEdit = async () => {
+    try {
+      const res = await editPreferencesService(
+        data._id.toString(),
+        name,
+        color,
       );
-
-      return () => {
-        // console.log('Screen was unfocused');
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
-      };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []),
-  );
-
-  const handleNew = (name: string) => {
-    newList(name)
-      .then(res => {
-        res && setLists({data: res, loading: false, error: ''});
-      })
-      .catch(err => setLists({data: [], loading: false, error: err}));
+      typeof res !== 'string' &&
+        setPreferences({data: res, loading: false, error: ''});
+    } catch (err) {
+      setPreferences({
+        data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+        loading: false,
+        error: 'Ocurrió un error',
+      });
+    }
+    Keyboard.dismiss();
   };
-
-  const handleEdit = () => {
-    editList(toEditId, formValue)
-      .then(res => {
-        res && setLists({data: res, loading: false, error: ''});
-      })
-      .catch(err => setLists({data: [], loading: false, error: err}));
-  };
-
-  // const handleDelete = (id: string) => {
-  //   deleteList(id)
-  //     .then(res => {
-  //       res && setLists({data: res, loading: false, error: ''});
-  //     })
-  //     .catch(err => setLists({data: [], loading: false, error: err}));
-  // };
 
   if (loading) {
     return (
@@ -82,22 +81,65 @@ export const ConfigScreen = () => {
           numberOfLines={1}
           ajustFontSize
         />
-        <Contend
-          action={() => {
-            setShowModal({showModal: true, type: 'NEW'});
-          }}>
-          <CustomModal
-            type={type}
-            title="Nueva categoría"
-            isVisible={showModal}
-            closeModal={() => setShowModal({showModal: false, type: 'NEW'})}
-            onCreate={(value: string) => handleNew(value)}
-            onEdit={() => handleEdit()}
-            onChange={(value: string) => onChange(value, 'formValue')}
-            formValue={formValue}
-          />
+        <Contend save={() => handleEdit()}>
+          <Text
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            style={[styles.title, {color: theme.colors.text}]}>
+            ¿Cómo quieres que te llamemos?
+          </Text>
+          <View style={styles.fromContainer}>
+            <TextInput
+              style={[styles.input, {backgroundColor: theme.colors.secondary}]}
+              onChangeText={value => onChange(value, 'name')}
+              placeholderTextColor={theme.colors.neutral}
+              placeholder={data.name}
+              autoCorrect={false}
+              autoCapitalize="sentences"
+              keyboardType="default"
+              value={name}
+            />
+
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={[styles.title, {color: theme.colors.text}]}>
+              Elije un color que más te guste
+            </Text>
+
+            <TextInput
+              style={[styles.input, {backgroundColor: data.selectedColor}]}
+              onChangeText={value => onChange(value, 'color')}
+              placeholderTextColor={theme.colors.neutral}
+              placeholder={data.selectedColor}
+              autoCorrect={false}
+              autoCapitalize="sentences"
+              keyboardType="default"
+              value={color}
+            />
+            {data.colors.map((item, index) => (
+              <Text key={index}>{item}</Text>
+            ))}
+          </View>
         </Contend>
       </Animated.View>
     );
   }
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
+  fromContainer: {
+    flex: 1,
+  },
+  input: {
+    paddingHorizontal: 10,
+    fontSize: 18,
+    marginTop: 8,
+    marginBottom: 16,
+    borderRadius: 8,
+  },
+});
