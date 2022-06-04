@@ -8,9 +8,24 @@ import {ListsProvider} from './src/context/lists/listsProvider';
 import {TodosProvider} from './src/context/todos/todosProvider';
 import {ThemeProvider} from './src/context/theme/themeProvider';
 import {ThemeContext} from './src/context/theme/themeContext';
+import {getPreferencesService} from './src/services/preferences';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 const AppNavigation = ({children}: any) => {
-  const {theme} = useContext(ThemeContext);
+  const {theme, setColor} = useContext(ThemeContext);
+  changeNavigationBarColor(theme.colors.primary, true, false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getPreferencesService();
+        typeof res !== 'string' && setColor(res.selectedColor);
+      } catch (err) {
+        setColor('#8d9bce');
+      }
+    };
+    fetchData();
+  }, []);
 
   return <NavigationContainer theme={theme}>{children}</NavigationContainer>;
 };

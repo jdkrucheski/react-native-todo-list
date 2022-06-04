@@ -36,11 +36,7 @@ export const getPreferences = (): Promise<
       .catch(error => reject(error));
   });
 
-export const editPreferences = (
-  id: string,
-  name: string,
-  selectedColor: string,
-) =>
+export const editName = (id: string, name: string) =>
   new Promise<void>((resolve, reject) => {
     Realm.open(databaseOptionsPreferences)
       .then(realm => {
@@ -51,6 +47,24 @@ export const editPreferences = (
           );
           if (updatingTodo) {
             updatingTodo.name = name;
+          }
+          // Agregar los demás parámetros que quiera modificar.
+          resolve();
+        });
+      })
+      .catch(error => reject(error));
+  });
+
+export const editAccentColor = (id: string, selectedColor: string) =>
+  new Promise<void>((resolve, reject) => {
+    Realm.open(databaseOptionsPreferences)
+      .then(realm => {
+        realm.write(() => {
+          const updatingTodo = realm.objectForPrimaryKey<PreferencesInterface>(
+            PREFERENCES_SCHEMA,
+            new Realm.BSON.ObjectId(id),
+          );
+          if (updatingTodo) {
             updatingTodo.selectedColor = selectedColor;
           }
           // Agregar los demás parámetros que quiera modificar.

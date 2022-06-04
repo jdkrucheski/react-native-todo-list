@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const FloatingButton = ({action, icon, position}: Props) => {
-  const {theme} = useContext(ThemeContext);
+  const {theme, accentColor} = useContext(ThemeContext);
 
   const ubication = position === 'left' ? {left: 80} : {right: 80};
   return (
@@ -18,16 +18,16 @@ export const FloatingButton = ({action, icon, position}: Props) => {
       onPress={() => action && action()}
       style={[
         {
-          height: 58,
-          width: 58,
-          borderRadius: 24,
+          height: 50,
+          width: 50,
+          borderRadius: 10,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: theme.colors.accent,
+          backgroundColor: accentColor,
           elevation: 4,
           shadowColor: theme.colors.neutral,
           position: 'absolute',
-          bottom: 6,
+          bottom: 10,
         },
         ubication,
       ]}>

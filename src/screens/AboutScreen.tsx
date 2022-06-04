@@ -12,7 +12,7 @@ import {ThemeContext} from '../context/theme/themeContext';
 import {socialMedia} from '../data/menuItems';
 
 export const AboutScreen = () => {
-  const {theme, globalStyles} = useContext(ThemeContext);
+  const {theme, globalStyles, accentColor} = useContext(ThemeContext);
 
   const loadInBrowser = (url: string) => {
     Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
@@ -30,7 +30,7 @@ export const AboutScreen = () => {
             style={{
               fontSize: 18,
               textDecorationLine: 'underline',
-              color: theme.colors.accent,
+              color: accentColor,
             }}
             onPress={() =>
               loadInBrowser('https://www.linkedin.com/in/jkrucheski/')
@@ -49,7 +49,7 @@ export const AboutScreen = () => {
             onPress={() => loadInBrowser(sm.link)}>
             <Icon
               name={sm.icon}
-              color={theme.colors.accent}
+              color={accentColor}
               size={24}
               style={{marginRight: 18}}
             />

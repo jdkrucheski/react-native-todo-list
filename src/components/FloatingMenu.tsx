@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const FloatingMenu = ({id, iconName, options}: Props) => {
-  const {theme} = useContext(ThemeContext);
+  const {theme, accentColor} = useContext(ThemeContext);
 
   const [showTip, setTip] = useState(false);
 
@@ -40,12 +40,8 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
                 option.action && option.action(id);
                 setTip(false);
               }}
-              style={[styles.btn, {borderColor: theme.colors.accent}]}>
-              <Icon
-                name={option.iconName}
-                color={theme.colors.accent}
-                size={18}
-              />
+              style={[styles.btn, {borderColor: accentColor}]}>
+              <Icon name={option.iconName} color={accentColor} size={18} />
 
               <Text style={[styles.btnText, {color: theme.colors.neutral}]}>
                 {option.name}
@@ -67,7 +63,7 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
           alignItems: 'flex-end',
           justifyContent: 'center',
         }}>
-        <Icon name={iconName} color={theme.colors.accent} size={34} />
+        <Icon name={iconName} color={accentColor} size={34} />
       </TouchableOpacity>
     </Tooltip>
   );

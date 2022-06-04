@@ -3,9 +3,10 @@ import {ThemeInterface} from './themeProvider';
 
 interface ThemeContextProps {
   theme: ThemeInterface;
+  accentColor: string;
   setDarkTheme: () => void;
   setLightTheme: () => void;
-  // setCustomTheme: () => void;
+  setColor: (color: string) => void;
   globalStyles: any;
 }
 

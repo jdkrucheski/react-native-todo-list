@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -33,7 +33,6 @@ export const Loading = () => {
       200,
     );
     return () => cancelAnimation(rotation);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -43,7 +42,10 @@ export const Loading = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
+        backgroundColor: theme.colors.primary,
       }}>
+      <StatusBar animated={true} backgroundColor={theme.colors.primary} />
+
       <Animated.View
         style={[
           {
@@ -51,9 +53,9 @@ export const Loading = () => {
             width: 60,
             borderRadius: 30,
             borderWidth: 7,
-            borderTopColor: theme.colors.neutral,
-            borderRightColor: theme.colors.neutral,
-            borderBottomColor: theme.colors.neutral,
+            borderTopColor: theme.colors.secondary,
+            borderRightColor: theme.colors.secondary,
+            borderBottomColor: theme.colors.secondary,
             borderLeftColor: theme.colors.primary,
           },
           animatedStyles,

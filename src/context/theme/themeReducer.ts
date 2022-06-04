@@ -16,9 +16,6 @@ export const ThemeReducer = (
       return action.payload;
     case 'SET_DARK_THEME':
       return action.payload;
-    // case 'SET_CUSTOM_THEME':
-    //   return {...customTheme};
-    // Para este caso, el tema viene en el poayload y lo leeo de la DB
     default:
       return state;
   }

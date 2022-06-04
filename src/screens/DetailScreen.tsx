@@ -19,7 +19,7 @@ export const DetailScreen = ({route}: Props) => {
   const [flag, setFlag] = useState(false);
   const [thisTodo, setThisTodo] = useState<TodoInterface>();
   const {setTodos} = useContext(TodosContext);
-  const {theme, globalStyles} = useContext(ThemeContext);
+  const {theme, globalStyles, accentColor} = useContext(ThemeContext);
 
   const {notes, onChange} = useForm({
     notes: '',
@@ -31,7 +31,6 @@ export const DetailScreen = ({route}: Props) => {
       todo && onChange(todo.notes, 'notes');
       setFlag(true);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEdit = () => {
@@ -57,7 +56,7 @@ export const DetailScreen = ({route}: Props) => {
   } else {
     return (
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={theme.colors.accent} />
+        <StatusBar animated={true} backgroundColor={accentColor} />
         {thisTodo && (
           <Header
             title={thisTodo?.name}

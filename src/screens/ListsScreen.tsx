@@ -15,7 +15,7 @@ import {deleteList, editList, getLists, newList} from '../services/lists';
 export const ListsScreen = () => {
   const navigation = useNavigation();
   const {data, loading, setLists} = useContext(ListsContext);
-  const {theme, globalStyles} = useContext(ThemeContext);
+  const {accentColor, globalStyles} = useContext(ThemeContext);
   const {formValue, onChange} = useForm({formValue: ''});
   const [toEditId, setToEditId] = useState('');
   const [{showModal, type}, setShowModal] = useState({
@@ -38,7 +38,6 @@ export const ListsScreen = () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 
@@ -75,7 +74,7 @@ export const ListsScreen = () => {
   } else {
     return (
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={theme.colors.accent} />
+        <StatusBar animated={true} backgroundColor={accentColor} />
         <Header title="Categorías" showBackButton={false} />
         <Contend
           action={() => {

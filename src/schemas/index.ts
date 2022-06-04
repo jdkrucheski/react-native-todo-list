@@ -36,7 +36,7 @@ export const PreferencesSchema = {
     colors: {
       type: 'list',
       objectType: 'string',
-      default: ['#8d9bce', '#F56D91', '#8D8DAA', '#D885A3 ', '#F7F5F2'],
+      default: ['#8d9bce', '#F56D91', '#14C38E', '#7858A6', '#8D8DAA'],
     },
   },
 };

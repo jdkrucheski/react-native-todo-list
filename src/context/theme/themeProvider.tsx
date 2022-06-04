@@ -1,17 +1,16 @@
 import {Theme} from '@react-navigation/native';
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {Appearance, AppState, StyleSheet, useColorScheme} from 'react-native';
 import {DarkTheme, LightTheme} from '../../themes/Themes';
 import {ThemeContext} from './themeContext';
 import {ThemeReducer} from './themeReducer';
 
-type themeNames = 'light' | 'dark' | 'custom';
+type themeNames = 'light' | 'dark';
 
 export interface ThemeInterface extends Theme {
   themeNames: themeNames;
   dark: boolean;
   colors: {
-    accent: string;
     primary: string;
     secondary: string;
     tertiary: string;
@@ -25,6 +24,8 @@ export interface ThemeInterface extends Theme {
 }
 
 export const ThemeProvider = ({children}: any) => {
+  const [accentColor, setAccentColor] = useState('#F56D91');
+
   const colorSchema = useColorScheme();
   const [theme, dispatch] = useReducer(
     ThemeReducer,
@@ -32,13 +33,14 @@ export const ThemeProvider = ({children}: any) => {
   );
 
   useEffect(() => {
-    AppState.addEventListener('change', status => {
+    const changeTheme = AppState.addEventListener('change', status => {
       if (status === 'active') {
         Appearance.getColorScheme() === 'light'
           ? setLightTheme()
           : setDarkTheme();
       }
     });
+    return () => changeTheme.remove();
   }, []);
 
   const setDarkTheme = () => {
@@ -48,6 +50,11 @@ export const ThemeProvider = ({children}: any) => {
   const setLightTheme = () => {
     dispatch({type: 'SET_LIGHT_THEME', payload: LightTheme});
   };
+
+  const setColor = (color: string) => {
+    setAccentColor(color);
+  };
+
   const globalStyles = StyleSheet.create({
     title: {
       fontSize: 48,
@@ -68,16 +75,16 @@ export const ThemeProvider = ({children}: any) => {
     },
     mainContainer: {
       flex: 1,
-      backgroundColor: theme.colors.accent,
+      backgroundColor: accentColor,
     },
     btn: {
       width: 130,
       height: 60,
       borderRadius: 8,
       marginHorizontal: 10,
-      backgroundColor: theme.colors.accent,
+      backgroundColor: accentColor,
       justifyContent: 'center',
-      shadowColor: theme.colors.accent,
+      shadowColor: accentColor,
       shadowOpacity: 0.48,
       shadowRadius: 11.95,
       elevation: 6,
@@ -106,6 +113,8 @@ export const ThemeProvider = ({children}: any) => {
         setDarkTheme,
         setLightTheme,
         globalStyles,
+        accentColor,
+        setColor,
       }}>
       {children}
     </ThemeContext.Provider>

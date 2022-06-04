@@ -27,7 +27,7 @@ export const TodosScreen = ({route}: Props) => {
   const navigation = useNavigation();
   const {listId, listName} = route.params;
   const {data, loading, setTodos} = useContext(TodosContext);
-  const {theme, globalStyles} = useContext(ThemeContext);
+  const {globalStyles, accentColor} = useContext(ThemeContext);
   const {formValue, onChange} = useForm({formValue: ''});
   const [toEditId, setToEditId] = useState('');
   const [{showModal, type}, setShowModal] = useState({
@@ -41,7 +41,6 @@ export const TodosScreen = ({route}: Props) => {
       res && setTodos({data: res, loading: false, error: ''});
     };
     fetchData().catch(err => setTodos({data: [], loading: false, error: err}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNew = (name: string) => {
@@ -88,7 +87,7 @@ export const TodosScreen = ({route}: Props) => {
   } else {
     return (
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={theme.colors.accent} />
+        <StatusBar animated={true} backgroundColor={accentColor} />
         <Header
           title={listName}
           style={{width: '100%', height: 400}}

@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const ListItems = ({item, action, options, secondaryAction}: Props) => {
-  const {theme, globalStyles} = useContext(ThemeContext);
+  const {theme, globalStyles, accentColor} = useContext(ThemeContext);
 
   return (
     <Animated.View
@@ -42,9 +42,7 @@ export const ListItems = ({item, action, options, secondaryAction}: Props) => {
         <Icon
           name={item.iconName}
           color={
-            item.status !== 'closed'
-              ? theme.colors.accent
-              : theme.colors.secondary
+            item.status !== 'closed' ? accentColor : theme.colors.secondary
           }
           size={34}
         />

@@ -32,7 +32,7 @@ export const CustomModal = ({
   onChange,
   formValue,
 }: Props) => {
-  const {theme} = useContext(ThemeContext);
+  const {theme, accentColor} = useContext(ThemeContext);
 
   return (
     <Modal visible={isVisible} transparent animationType="slide">
@@ -84,7 +84,7 @@ export const CustomModal = ({
               style={[
                 styles.btn,
                 {
-                  backgroundColor: theme.colors.accent,
+                  backgroundColor: accentColor,
                   shadowColor: theme.colors.neutral,
                 },
               ]}>
