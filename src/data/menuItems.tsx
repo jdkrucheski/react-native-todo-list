@@ -51,12 +51,12 @@ export const socialMedia: Links[] = [
     icon: 'logo-google-playstore',
     text: 'Califica esta aplicación',
   },
-  {
-    name: 'more-apps',
-    link: 'http://play.google.com/store/apps/dev?id=9040862469045992682',
-    icon: 'code-download-outline',
-    text: 'Más aplicaciones',
-  },
+  // {
+  //   name: 'more-apps',
+  //   link: 'http://play.google.com/store/apps/dev?id=9040862469045992682',
+  //   icon: 'code-download-outline',
+  //   text: 'Más aplicaciones',
+  // },
   {
     name: 'linkedin',
     link: 'https://www.linkedin.com/in/jkrucheski/',
