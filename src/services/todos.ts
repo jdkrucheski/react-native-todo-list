@@ -1,5 +1,5 @@
 import {TodoInterface} from '../interfaces/AppInterfaces';
-import {getListsByIdList} from '../schemas/ListsSchemas';
+import {getListsByIdList} from '../schemas/ListsSchema';
 import {
   deleteTodoById,
   done,

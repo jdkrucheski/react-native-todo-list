@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {StatusBar, View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,9 +8,11 @@ import Animated, {
   cancelAnimation,
   Easing,
 } from 'react-native-reanimated';
-import {themeColors} from '../../App';
+import {ThemeContext} from '../context/theme/themeContext';
 
 export const Loading = () => {
+  const {theme} = useContext(ThemeContext);
+
   const rotation = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -31,31 +33,34 @@ export const Loading = () => {
       200,
     );
     return () => cancelAnimation(rotation);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.spinner, animatedStyles]} />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        backgroundColor: theme.colors.primary,
+      }}>
+      <StatusBar animated={true} backgroundColor={theme.colors.primary} />
+
+      <Animated.View
+        style={[
+          {
+            height: 60,
+            width: 60,
+            borderRadius: 30,
+            borderWidth: 7,
+            borderTopColor: theme.colors.secondary,
+            borderRightColor: theme.colors.secondary,
+            borderBottomColor: theme.colors.secondary,
+            borderLeftColor: theme.colors.primary,
+          },
+          animatedStyles,
+        ]}
+      />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-  },
-  spinner: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-    borderWidth: 7,
-    borderTopColor: themeColors.neutral1,
-    borderRightColor: themeColors.neutral1,
-    borderBottomColor: themeColors.neutral1,
-    borderLeftColor: themeColors.secondary,
-  },
-});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Image,
   Linking,
@@ -8,29 +8,29 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {themeColors} from '../../App';
+import {ThemeContext} from '../context/theme/themeContext';
 import {socialMedia} from '../data/menuItems';
 
 export const AboutScreen = () => {
+  const {theme, globalStyles, accentColor} = useContext(ThemeContext);
+
   const loadInBrowser = (url: string) => {
     Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
   };
 
   return (
     <View style={{flex: 1, padding: 20}}>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: theme.colors.primary}]}>
         <Image
           source={require('../../android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png')}
         />
         <View style={styles.textContainer}>
-          <Text style={{fontSize: 18, color: themeColors.neutral1}}>
-            Desarrollado por{' '}
-          </Text>
+          <Text style={globalStyles.text}>Desarrollado por </Text>
           <Text
             style={{
               fontSize: 18,
               textDecorationLine: 'underline',
-              color: themeColors.primary,
+              color: accentColor,
             }}
             onPress={() =>
               loadInBrowser('https://www.linkedin.com/in/jkrucheski/')
@@ -44,11 +44,16 @@ export const AboutScreen = () => {
         {socialMedia.map(sm => (
           <TouchableOpacity
             key={sm.name}
-            style={styles.btn}
+            style={[styles.btn, {backgroundColor: theme.colors.primary}]}
             activeOpacity={0.8}
             onPress={() => loadInBrowser(sm.link)}>
-            <Icon name={sm.icon} color={themeColors.neutral1} size={24} />
-            <Text style={styles.text}>{sm.text}</Text>
+            <Icon
+              name={sm.icon}
+              color={accentColor}
+              size={24}
+              style={{marginRight: 18}}
+            />
+            <Text style={globalStyles.text}>{sm.text}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -59,7 +64,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    backgroundColor: themeColors.secondary,
     borderRadius: 8,
     padding: 10,
     marginTop: 24,
@@ -82,16 +86,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: themeColors.secondary,
     borderRadius: 8,
     padding: 10,
     marginVertical: 4,
-  },
-
-  text: {
-    flex: 1,
-    fontSize: 18,
-    marginLeft: 12,
-    color: themeColors.neutral1,
   },
 });

@@ -1,5 +1,7 @@
 export const TODO_SCHEMA = 'Todo';
 export const TODOLIST_SCHEMA = 'TodoList';
+export const COLOR_SCHEMA = 'Color';
+export const PREFERENCES_SCHEMA = 'Preferences';
 
 export const TodoSchema = {
   name: TODO_SCHEMA,
@@ -13,7 +15,7 @@ export const TodoSchema = {
   },
 };
 
-export const Listschema = {
+export const ListSchema = {
   name: TODOLIST_SCHEMA,
   primaryKey: '_id',
   properties: {
@@ -24,7 +26,27 @@ export const Listschema = {
   },
 };
 
+export const PreferencesSchema = {
+  name: PREFERENCES_SCHEMA,
+  primaryKey: '_id',
+  properties: {
+    _id: 'objectId',
+    name: {type: 'string', default: 'Humano'},
+    selectedColor: {type: 'string', default: '#8d9bce'},
+    colors: {
+      type: 'list',
+      objectType: 'string',
+      default: ['#8d9bce', '#F56D91', '#14C38E', '#7858A6', '#8D8DAA'],
+    },
+  },
+};
+
 export const databaseOptions = {
   path: 'todoListApp.realm',
-  schema: [Listschema, TodoSchema],
+  schema: [ListSchema, TodoSchema],
+};
+
+export const databaseOptionsPreferences = {
+  path: 'todoListAppPreferences.realm',
+  schema: [PreferencesSchema],
 };

@@ -1,10 +1,10 @@
-export type Status = 'open' | 'closed';
+export type status = 'open' | 'closed';
 
 export interface Item {
   id: string;
   title: string;
   iconName: string;
-  subTitle?: string;
+  info?: string;
   status?: string;
 }
 
@@ -20,7 +20,7 @@ export interface TodoInterface {
   deleted: boolean;
   name: string;
   notes: string;
-  status: Status;
+  status: status;
 }
 
 export interface TodoListInterface {
@@ -28,4 +28,10 @@ export interface TodoListInterface {
   deleted?: boolean;
   name: string;
   todos?: TodoInterface[];
+}
+export interface PreferencesInterface {
+  _id: object;
+  name: string;
+  selectedColor: string;
+  colors: string[];
 }

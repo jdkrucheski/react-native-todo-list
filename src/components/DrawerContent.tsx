@@ -1,14 +1,17 @@
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {menuItems} from '../data/menuItems';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {ThemeContext} from '../context/theme/themeContext';
 
 interface Props {
   navigation: DrawerNavigationHelpers;
 }
 export const DrawerContent = ({navigation}: Props) => {
+  const {theme, globalStyles} = useContext(ThemeContext);
+
   return (
     <DrawerContentScrollView
       scrollEnabled={true}
@@ -18,12 +21,23 @@ export const DrawerContent = ({navigation}: Props) => {
         <View style={{marginBottom: 20}}>
           {menuItems.map(item => (
             <View key={item.name} style={styles.itemContainner}>
-              <Icon name={item.icon} color="#121216" size={22} />
+              <Icon
+                name={item.icon}
+                color={theme.colors.notification}
+                size={22}
+                style={{marginRight: 8}}
+              />
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate(item.component);
                 }}>
-                <Text style={styles.text}>{item.name}</Text>
+                <Text
+                  style={[
+                    globalStyles.subTitle,
+                    {color: theme.colors.notification},
+                  ]}>
+                  {item.name}
+                </Text>
               </TouchableOpacity>
             </View>
           ))}

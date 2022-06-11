@@ -1,20 +1,21 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useCallback, useContext, useState} from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import Animated, {FadeIn} from 'react-native-reanimated';
-import {themeColors} from '../../App';
 import {Contend} from '../components/Contend';
 import {CustomModal} from '../components/CustomModal';
 import {Header} from '../components/Header';
 import {List} from '../components/List';
 import {Loading} from '../components/Loading';
 import {ListsContext} from '../context/lists/listsContext';
+import {ThemeContext} from '../context/theme/themeContext';
 import {useForm} from '../hooks/useForm';
 import {deleteList, editList, getLists, newList} from '../services/lists';
 
 export const ListsScreen = () => {
   const navigation = useNavigation();
   const {data, loading, setLists} = useContext(ListsContext);
+  const {accentColor, globalStyles} = useContext(ThemeContext);
   const {formValue, onChange} = useForm({formValue: ''});
   const [toEditId, setToEditId] = useState('');
   const [{showModal, type}, setShowModal] = useState({
@@ -37,7 +38,6 @@ export const ListsScreen = () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 
@@ -67,14 +67,14 @@ export const ListsScreen = () => {
 
   if (loading) {
     return (
-      <View style={{flex: 1, backgroundColor: themeColors.primary}}>
+      <View style={globalStyles.mainContainer}>
         <Loading />
       </View>
     );
   } else {
     return (
-      <Animated.View style={styles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={themeColors.primary} />
+      <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
+        <StatusBar animated={true} backgroundColor={accentColor} />
         <Header title="Categorías" showBackButton={false} />
         <Contend
           action={() => {
@@ -86,7 +86,7 @@ export const ListsScreen = () => {
                 id: l._id.toString(),
                 iconName: 'at-circle-outline',
                 title: l.name,
-                subTitle: `Tareas completas: ${
+                info: `Tareas completas: ${
                   l.todos?.filter(t => t.status === 'closed').length
                 }/${l.todos?.length}`,
               };
@@ -135,27 +135,3 @@ export const ListsScreen = () => {
     );
   }
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: themeColors.primary,
-  },
-  btn: {
-    width: 96,
-    height: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: themeColors.secondary,
-    marginVertical: 2,
-  },
-  btnText: {
-    marginLeft: 4,
-    color: '#fff',
-  },
-});

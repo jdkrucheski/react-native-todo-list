@@ -1,14 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, StatusBar, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {Header} from '../components/Header';
 import {RootStackParams} from '../navigation/Stack';
 import {StackScreenProps} from '@react-navigation/stack';
-// import {RealmContext} from '../context/realm/realmContext';
-import {themeColors} from '../../App';
 import Animated, {FadeIn} from 'react-native-reanimated';
-// import {useNavigation} from '@react-navigation/native';
-// import {Contend} from '../components/Contend';
-// import {List} from '../components/List';
 import {Loading} from '../components/Loading';
 import {TodosContext} from '../context/todos/todosContext';
 import {
@@ -24,6 +19,7 @@ import {List} from '../components/List';
 import {useForm} from '../hooks/useForm';
 import {CustomModal} from '../components/CustomModal';
 import {useNavigation} from '@react-navigation/native';
+import {ThemeContext} from '../context/theme/themeContext';
 
 interface Props extends StackScreenProps<RootStackParams, 'TodosScreen'> {}
 
@@ -31,6 +27,7 @@ export const TodosScreen = ({route}: Props) => {
   const navigation = useNavigation();
   const {listId, listName} = route.params;
   const {data, loading, setTodos} = useContext(TodosContext);
+  const {globalStyles, accentColor} = useContext(ThemeContext);
   const {formValue, onChange} = useForm({formValue: ''});
   const [toEditId, setToEditId] = useState('');
   const [{showModal, type}, setShowModal] = useState({
@@ -44,7 +41,6 @@ export const TodosScreen = ({route}: Props) => {
       res && setTodos({data: res, loading: false, error: ''});
     };
     fetchData().catch(err => setTodos({data: [], loading: false, error: err}));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNew = (name: string) => {
@@ -84,14 +80,14 @@ export const TodosScreen = ({route}: Props) => {
 
   if (loading) {
     return (
-      <View style={{flex: 1, backgroundColor: themeColors.primary}}>
+      <View style={globalStyles.mainContainer}>
         <Loading />
       </View>
     );
   } else {
     return (
-      <Animated.View style={styles.mainContainer} entering={FadeIn}>
-        <StatusBar animated={true} backgroundColor={themeColors.primary} />
+      <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
+        <StatusBar animated={true} backgroundColor={accentColor} />
         <Header
           title={listName}
           style={{width: '100%', height: 400}}
@@ -156,10 +152,3 @@ export const TodosScreen = ({route}: Props) => {
     );
   }
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: themeColors.primary,
-  },
-});

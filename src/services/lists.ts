@@ -4,7 +4,7 @@ import {
   editTodoList,
   getAllLists,
   insertTodoList,
-} from '../schemas/ListsSchemas';
+} from '../schemas/ListsSchema';
 
 export const newList = async (name: string) => {
   try {

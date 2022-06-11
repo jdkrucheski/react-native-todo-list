@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Tooltip from 'react-native-walkthrough-tooltip';
-import {themeColors} from '../../App';
+import {ThemeContext} from '../context/theme/themeContext';
+// import {theme} from '../../App';
 import {MenuOption} from '../interfaces/AppInterfaces';
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export const FloatingMenu = ({id, iconName, options}: Props) => {
+  const {theme, accentColor} = useContext(ThemeContext);
+
   const [showTip, setTip] = useState(false);
 
   return (
@@ -23,11 +26,13 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
         padding: 0,
         backgroundColor: 'transparent',
         elevation: 2,
-        shadowColor: themeColors.neutral1,
+        shadowColor: theme.colors.neutral,
       }}
       isVisible={showTip}
       content={
-        <View key={'menu' + id} style={styles.menu}>
+        <View
+          key={'menu' + id}
+          style={[styles.menu, {backgroundColor: theme.colors.primary}]}>
           {options.map((option: MenuOption) => (
             <TouchableOpacity
               key={option.id}
@@ -35,13 +40,12 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
                 option.action && option.action(id);
                 setTip(false);
               }}
-              style={styles.btn}>
-              <Icon
-                name={option.iconName}
-                color={themeColors.primary}
-                size={18}
-              />
-              <Text style={styles.btnText}>{option.name}</Text>
+              style={[styles.btn, {borderColor: accentColor}]}>
+              <Icon name={option.iconName} color={accentColor} size={18} />
+
+              <Text style={[styles.btnText, {color: theme.colors.neutral}]}>
+                {option.name}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -59,7 +63,7 @@ export const FloatingMenu = ({id, iconName, options}: Props) => {
           alignItems: 'flex-end',
           justifyContent: 'center',
         }}>
-        <Icon name={iconName} color={themeColors.primary} size={34} />
+        <Icon name={iconName} color={accentColor} size={34} />
       </TouchableOpacity>
     </Tooltip>
   );
@@ -72,7 +76,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 5,
     borderRadius: 8,
-    backgroundColor: themeColors.secondary,
   },
   btn: {
     width: '100%',
@@ -84,12 +87,10 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     // borderWidth: 1,
     borderRadius: 8,
-    borderColor: themeColors.primary,
     marginVertical: 2,
   },
   btnText: {
     fontSize: 16,
     marginLeft: 4,
-    color: themeColors.neutral1,
   },
 });
