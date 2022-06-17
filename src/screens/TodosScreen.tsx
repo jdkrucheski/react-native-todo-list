@@ -20,10 +20,12 @@ import {useForm} from '../hooks/useForm';
 import {CustomModal} from '../components/CustomModal';
 import {useNavigation} from '@react-navigation/native';
 import {ThemeContext} from '../context/theme/themeContext';
+import {useTranslation} from 'react-i18next';
 
 interface Props extends StackScreenProps<RootStackParams, 'TodosScreen'> {}
 
 export const TodosScreen = ({route}: Props) => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const {listId, listName} = route.params;
   const {data, loading, setTodos} = useContext(TodosContext);
@@ -120,7 +122,7 @@ export const TodosScreen = ({route}: Props) => {
             menuOptions={[
               {
                 id: 0,
-                name: 'Editar',
+                name: t('Editar'),
                 iconName: 'build-outline',
                 action: (id: string) => {
                   setToEditId(id);
@@ -131,7 +133,7 @@ export const TodosScreen = ({route}: Props) => {
               },
               {
                 id: 1,
-                name: 'Eliminar',
+                name: t('Eliminar'),
                 iconName: 'trash-outline',
                 action: (id: string) => handleDelete(id),
               },
@@ -139,7 +141,7 @@ export const TodosScreen = ({route}: Props) => {
           />
           <CustomModal
             type={type}
-            title="Nueva tarea"
+            title={t('Nueva tarea')}
             isVisible={showModal}
             closeModal={() => setShowModal({showModal: false, type: 'NEW'})}
             onCreate={(value: string) => handleNew(value)}

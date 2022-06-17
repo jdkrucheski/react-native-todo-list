@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Modal,
   StyleSheet,
@@ -33,7 +34,7 @@ export const CustomModal = ({
   formValue,
 }: Props) => {
   const {theme, accentColor} = useContext(ThemeContext);
-
+  const {t} = useTranslation();
   return (
     <Modal visible={isVisible} transparent animationType="slide">
       <View style={styles.modalContainer}>
@@ -65,7 +66,7 @@ export const CustomModal = ({
               style={[styles.input, {backgroundColor: theme.colors.secondary}]}
               onChangeText={value => onChange(value)}
               placeholderTextColor={theme.colors.neutral}
-              placeholder={`Nombre de la ${title.toLocaleLowerCase()}`}
+              placeholder={`${t('Nombre de la')} ${title.toLocaleLowerCase()}`}
               autoCorrect={false}
               autoCapitalize="sentences"
               keyboardType="default"
@@ -89,7 +90,7 @@ export const CustomModal = ({
                 },
               ]}>
               <Text style={[styles.btnText, {color: theme.colors.text}]}>
-                Guardar
+                {t('Guardar')}
               </Text>
             </TouchableOpacity>
           </View>

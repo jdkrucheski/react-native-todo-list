@@ -36,7 +36,7 @@ export const Header = ({
     <Animated.View entering={FadeInRight.delay(300)} style={styles.container}>
       <View style={styles.status}>
         {status !== 'GUARDADO' && (
-          <Text style={{color: '#E45826', fontWeight: '700'}}>
+          <Text style={{color: '#E45826', fontWeight: '700', marginRight: 18}}>
             {status.toUpperCase()}
           </Text>
         )}

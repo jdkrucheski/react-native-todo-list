@@ -11,6 +11,7 @@ import {TodoInterface} from '../interfaces/AppInterfaces';
 import {editTodo, getTodo} from '../services/todos';
 import {TodosContext} from '../context/todos/todosContext';
 import {ThemeContext} from '../context/theme/themeContext';
+import i18n from '../../i18n.config';
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> {}
 
@@ -62,7 +63,11 @@ export const DetailScreen = ({route}: Props) => {
             title={thisTodo?.name}
             showBackButton
             isEditable
-            status={thisTodo?.notes !== notes ? 'No guardado' : 'GUARDADO'}
+            status={
+              thisTodo?.notes !== notes
+                ? i18n.t('No guardado')
+                : i18n.t('Guardado')
+            }
           />
         )}
         <Animated.View

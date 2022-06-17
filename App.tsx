@@ -11,6 +11,8 @@ import {ThemeContext} from './src/context/theme/themeContext';
 import {getPreferencesService} from './src/services/preferences';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
+import './i18n.config';
+
 const AppNavigation = ({children}: any) => {
   const {theme, setColor} = useContext(ThemeContext);
   changeNavigationBarColor(theme.colors.primary, true, false);

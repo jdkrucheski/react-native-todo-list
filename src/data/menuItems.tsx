@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '../../i18n.config';
 import {AboutScreen} from '../screens/AboutScreen';
 import {ConfigScreen} from '../screens/ConfigScreen';
 import {ListsScreen} from '../screens/ListsScreen';
@@ -28,17 +29,17 @@ export const Pages: Pages = {
 
 export const menuItems: MenuItem[] = [
   {
-    name: 'Categorías',
+    name: i18n.t('Categorías'),
     icon: 'home-outline',
     component: 'StackNavigator',
   },
   {
-    name: 'Acerca de',
+    name: i18n.t('Acerca de'),
     icon: 'information-circle-outline',
     component: 'AboutScreen',
   },
   {
-    name: 'Preferecias',
+    name: i18n.t('Preferecias'),
     icon: 'cog-outline',
     component: 'ConfigScreen',
   },
@@ -49,24 +50,24 @@ export const socialMedia: Links[] = [
     name: 'google-play',
     link: 'http://play.google.com/store/apps/details?id=com.jonathankrucheski.todolist',
     icon: 'logo-google-playstore',
-    text: 'Califica esta aplicación',
+    text: i18n.t('Califica esta aplicación'),
   },
   // {
   //   name: 'more-apps',
   //   link: 'http://play.google.com/store/apps/dev?id=9040862469045992682',
   //   icon: 'code-download-outline',
-  //   text: 'Más aplicaciones',
+  //   text: i18n.t('Más aplicaciones',
   // },
   {
     name: 'linkedin',
     link: 'https://www.linkedin.com/in/jkrucheski/',
     icon: 'logo-linkedin',
-    text: 'Mi Linkedin',
+    text: i18n.t('Mi Linkedin'),
   },
   {
     name: 'github',
     link: 'https://github.com/jdkrucheski',
     icon: 'logo-github',
-    text: 'Mi GitHub',
+    text: i18n.t('Mi GitHub'),
   },
 ];

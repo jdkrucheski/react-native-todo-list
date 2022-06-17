@@ -20,8 +20,10 @@ import {
   getPreferencesService,
 } from '../services/preferences';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useTranslation} from 'react-i18next';
 
 export const ConfigScreen = () => {
+  const {t} = useTranslation();
   const {theme, globalStyles, setColor, accentColor} = useContext(ThemeContext);
 
   const {name, color, onChange} = useForm({name: '', color: ''});
@@ -108,7 +110,7 @@ export const ConfigScreen = () => {
             numberOfLines={1}
             adjustsFontSizeToFit
             style={[styles.title, {color: theme.colors.text}]}>
-            ¿Cómo quieres que te llamemos?
+            {t('¿Cómo quieres que te llamemos?')}
           </Text>
           <View style={styles.fromContainer}>
             <View style={styles.inputItem}>
@@ -147,7 +149,7 @@ export const ConfigScreen = () => {
               numberOfLines={1}
               adjustsFontSizeToFit
               style={[styles.title, {color: theme.colors.text}]}>
-              Elije el color que más te guste
+              {t('Elije el color que más te guste')}
             </Text>
             {data.colors.map((item, index) => (
               <View key={index} style={styles.inputItem}>
