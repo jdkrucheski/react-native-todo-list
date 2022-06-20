@@ -32,12 +32,13 @@ export const Contend = ({children, action, save}: Props) => {
           icon={drawer !== 'closed' ? 'close-outline' : 'menu-outline'}
           position={'left'}
         />
-
-        <FloatingButton
-          action={() => action && action()}
-          icon="add-outline"
-          position={'right'}
-        />
+        {!save && (
+          <FloatingButton
+            action={() => action && action()}
+            icon="add-outline"
+            position={'right'}
+          />
+        )}
         {save && (
           <FloatingButton
             action={() => save()}
