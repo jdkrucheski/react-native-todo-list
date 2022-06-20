@@ -33,5 +33,7 @@ export interface PreferencesInterface {
   _id: object;
   name: string;
   selectedColor: string;
+  selectedLanguage: string;
   colors: string[];
+  languages: string[];
 }

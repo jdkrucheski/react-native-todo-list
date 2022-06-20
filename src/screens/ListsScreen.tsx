@@ -77,10 +77,7 @@ export const ListsScreen = () => {
     return (
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
         <StatusBar animated={true} backgroundColor={accentColor} />
-        <Header
-          title={`${t('Hola')} ${t('Casa')} ${t('Categorías')}`}
-          showBackButton={false}
-        />
+        <Header title={`${t('Categorías')}`} showBackButton={false} />
         <Contend
           action={() => {
             setShowModal({showModal: true, type: 'NEW'});

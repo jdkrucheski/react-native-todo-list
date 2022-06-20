@@ -16,20 +16,33 @@ import {ThemeContext} from '../context/theme/themeContext';
 import {useForm} from '../hooks/useForm';
 import {
   editAccentColorService,
+  editAccentLanguageService,
   editNameService,
   getPreferencesService,
 } from '../services/preferences';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
+import {Picker} from '../components/Picker';
 
 export const ConfigScreen = () => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme, globalStyles, setColor, accentColor} = useContext(ThemeContext);
 
-  const {name, color, onChange} = useForm({name: '', color: ''});
+  const {name, color, languaje, onChange} = useForm({
+    name: '',
+    color: '',
+    languaje: '',
+  });
 
   const [{data, loading}, setPreferences] = useState({
-    data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+    data: {
+      _id: {},
+      name: '',
+      selectedColor: '',
+      colors: [''],
+      selectedLanguage: '',
+      languages: [''],
+    },
     loading: true,
     error: '',
   });
@@ -42,7 +55,14 @@ export const ConfigScreen = () => {
           setPreferences({data: res, loading: false, error: ''});
       } catch (err) {
         setPreferences({
-          data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+          data: {
+            _id: {},
+            name: '',
+            selectedColor: '',
+            colors: [''],
+            selectedLanguage: '',
+            languages: [''],
+          },
           loading: false,
           error: 'Ocurrió un error',
         });
@@ -62,14 +82,22 @@ export const ConfigScreen = () => {
       }
     } catch (err) {
       setPreferences({
-        data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+        data: {
+          _id: {},
+          name: '',
+          selectedColor: '',
+          colors: [''],
+          selectedLanguage: '',
+          languages: [''],
+        },
         loading: false,
         error: 'Ocurrió un error',
       });
     }
     Keyboard.dismiss();
   };
-  const handleEditColor = async (selectedColor?: string) => {
+
+  const handleEditColor = async (selectedColor: string) => {
     try {
       const res = await editAccentColorService(
         data._id.toString(),
@@ -81,7 +109,41 @@ export const ConfigScreen = () => {
       }
     } catch (err) {
       setPreferences({
-        data: {_id: {}, name: '', selectedColor: '', colors: ['']},
+        data: {
+          _id: {},
+          name: '',
+          selectedColor: '',
+          colors: [''],
+          selectedLanguage: '',
+          languages: [''],
+        },
+        loading: false,
+        error: 'Ocurrió un error',
+      });
+    }
+    Keyboard.dismiss();
+  };
+
+  const handleEditLanguage = async (selectedLanguage: string) => {
+    try {
+      const res = await editAccentLanguageService(
+        data._id.toString(),
+        selectedLanguage ? selectedLanguage : languaje,
+      );
+      if (typeof res !== 'string') {
+        setPreferences({data: res, loading: false, error: ''});
+        i18n.changeLanguage(res.selectedLanguage);
+      }
+    } catch (err) {
+      setPreferences({
+        data: {
+          _id: {},
+          name: '',
+          selectedColor: '',
+          colors: [''],
+          selectedLanguage: '',
+          languages: [''],
+        },
         loading: false,
         error: 'Ocurrió un error',
       });
@@ -100,19 +162,19 @@ export const ConfigScreen = () => {
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
         <StatusBar animated={true} backgroundColor={accentColor} />
         <Header
-          title="Configuraciones"
+          title={t('Configuraciones')}
           showBackButton={false}
           numberOfLines={1}
           ajustFontSize
         />
         <Contend>
-          <Text
-            numberOfLines={1}
-            adjustsFontSizeToFit
-            style={[styles.title, {color: theme.colors.text}]}>
-            {t('¿Cómo quieres que te llamemos?')}
-          </Text>
           <View style={styles.fromContainer}>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={[styles.title, {color: theme.colors.text}]}>
+              {t('¿Cómo quieres que te llamemos?')}
+            </Text>
             <View style={styles.inputItem}>
               <TextInput
                 style={[
@@ -144,37 +206,41 @@ export const ConfigScreen = () => {
                 />
               </TouchableOpacity>
             </View>
-
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={[styles.title, {color: theme.colors.text}]}>
+              {t('¿Cuál es tu idioma?')}
+            </Text>
+            <View style={styles.inputItem}>
+              <Picker
+                key="languages"
+                selected={data.selectedLanguage}
+                items={[
+                  {name: 'en', label: 'English'},
+                  {name: 'es', label: 'Español'},
+                  {name: 'pt', label: 'Português'},
+                ]}
+                onSelect={item => handleEditLanguage(item)}
+              />
+            </View>
             <Text
               numberOfLines={1}
               adjustsFontSizeToFit
               style={[styles.title, {color: theme.colors.text}]}>
               {t('Elije el color que más te guste')}
             </Text>
-            {data.colors.map((item, index) => (
-              <View key={index} style={styles.inputItem}>
-                {/* <TextInput
-                  style={[
-                    styles.input,
-                    {backgroundColor: theme.colors.secondary},
-                  ]}
-                  onChangeText={value => onChange(value, 'color')}
-                  placeholderTextColor={theme.colors.neutral}
-                  placeholder={data.selectedColor}
-                  autoCorrect={false}
-                  autoCapitalize="sentences"
-                  keyboardType="default"
-                  value={color}
-                /> */}
-                <TouchableOpacity
-                  onPress={() => handleEditColor(item)}
-                  style={[
-                    styles.colorContainer,
-                    {backgroundColor: item, shadowColor: theme.colors.neutral},
-                  ]}
-                />
-              </View>
-            ))}
+            <View style={styles.inputItem}>
+              <Picker
+                key="colors"
+                selected={data.selectedColor}
+                items={data.colors.map(colorCode => ({
+                  name: colorCode,
+                  label: colorCode,
+                }))}
+                onSelect={item => handleEditColor(item)}
+              />
+            </View>
           </View>
         </Contend>
       </Animated.View>

@@ -2,6 +2,7 @@ import {PreferencesInterface} from '../interfaces/AppInterfaces';
 import {
   editName,
   editAccentColor,
+  editAccentLanguage,
   getPreferences,
   startPreferences,
 } from '../schemas/PreferencesSchema';
@@ -42,6 +43,21 @@ export const editAccentColorService = async (
 ) => {
   try {
     await editAccentColor(id, selectedColor);
+    const preferences = await getPreferencesService();
+    return preferences;
+  } catch (error) {
+    // TODO: Manejar mejor el error
+    console.log(error);
+    return 'Ocurrió un error';
+  }
+};
+
+export const editAccentLanguageService = async (
+  id: string,
+  selectedLanguage: string,
+) => {
+  try {
+    await editAccentLanguage(id, selectedLanguage);
     const preferences = await getPreferencesService();
     return preferences;
   } catch (error) {

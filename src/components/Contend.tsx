@@ -28,7 +28,6 @@ export const Contend = ({children, action, save}: Props) => {
         <FloatingButton
           action={() => {
             navigation.dispatch(DrawerActions.openDrawer());
-            console.log(navigation.isFocused());
           }}
           icon={drawer !== 'closed' ? 'close-outline' : 'menu-outline'}
           position={'left'}
