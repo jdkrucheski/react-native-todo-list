@@ -7,13 +7,16 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "i18n-download": "node utils/syncTranslations/downloadTranslatedKeys.js",
+    "i18n-upload": "i18next --fail-on-warnings && node utils/syncTranslations/uploadUntranslatedKeys.js"
   },
   "dependencies": {
     "@react-navigation/drawer": "^6.3.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
     "react": "17.0.2",
+    "react-i18next": "^11.17.2",
     "react-native": "0.68.1",
     "react-native-gesture-handler": "2.1.1",
     "react-native-get-random-values": "^1.7.2",
@@ -39,6 +42,8 @@
     "@typescript-eslint/parser": "^5.17.0",
     "babel-jest": "^26.6.3",
     "eslint": "^8.9.0",
+    "google-spreadsheet": "^3.3.0",
+    "i18next-parser": "^6.5.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.67.0",
     "prettier": "^2.5.1",

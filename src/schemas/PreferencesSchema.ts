@@ -74,38 +74,21 @@ export const editAccentColor = (id: string, selectedColor: string) =>
       .catch(error => reject(error));
   });
 
-// export const getColorByIdt = (
-//   listId: string,
-// ): Promise<TodoListInterface & Realm.Object> =>
-//   new Promise((resolve, reject) => {
-//     Realm.open(databaseOptions)
-//       .then(realm => {
-//         realm.write(() => {
-//           const todoList = realm.objectForPrimaryKey<TodoListInterface>(
-//             TODOLIST_SCHEMA,
-//             new Realm.BSON.ObjectId(listId),
-//           );
-//           todoList
-//             ? resolve(todoList)
-//             : reject(`No se encontró nada con el ID:${listId}`);
-//         });
-//       })
-//       .catch(error => reject(error));
-//   });
-
-// export const deleteColor = (listId: string) =>
-//   new Promise<void>((resolve, reject) => {
-//     Realm.open(databaseOptions)
-//       .then(realm => {
-//         realm.write(() => {
-//           const deletingTodoList = realm.objectForPrimaryKey<TodoListInterface>(
-//             TODOLIST_SCHEMA,
-//             new Realm.BSON.ObjectId(listId),
-//           );
-//           deletingTodoList && (deletingTodoList.deleted = true); // Soft delete
-//           // realm.delete(deletingTodoList) // Hard delete
-//           resolve();
-//         });
-//       })
-//       .catch(error => reject(error));
-//   });
+export const editAccentLanguage = (id: string, selectedLanguage: string) =>
+  new Promise<void>((resolve, reject) => {
+    Realm.open(databaseOptionsPreferences)
+      .then(realm => {
+        realm.write(() => {
+          const updatingTodo = realm.objectForPrimaryKey<PreferencesInterface>(
+            PREFERENCES_SCHEMA,
+            new Realm.BSON.ObjectId(id),
+          );
+          if (updatingTodo) {
+            updatingTodo.selectedLanguage = selectedLanguage;
+          }
+          // Agregar los demás parámetros que quiera modificar.
+          resolve();
+        });
+      })
+      .catch(error => reject(error));
+  });

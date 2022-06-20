@@ -1,3 +1,5 @@
+import i18n from '../../i18n.config';
+
 export const TODO_SCHEMA = 'Todo';
 export const TODOLIST_SCHEMA = 'TodoList';
 export const COLOR_SCHEMA = 'Color';
@@ -33,10 +35,16 @@ export const PreferencesSchema = {
     _id: 'objectId',
     name: {type: 'string', default: 'Humano'},
     selectedColor: {type: 'string', default: '#8d9bce'},
+    selectedLanguage: {type: 'string', default: i18n.language},
     colors: {
       type: 'list',
       objectType: 'string',
       default: ['#8d9bce', '#F56D91', '#14C38E', '#7858A6', '#8D8DAA'],
+    },
+    languages: {
+      type: 'list',
+      objectType: 'string',
+      default: ['English', 'Español', 'Português'],
     },
   },
 };

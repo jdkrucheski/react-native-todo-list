@@ -28,17 +28,17 @@ export const Contend = ({children, action, save}: Props) => {
         <FloatingButton
           action={() => {
             navigation.dispatch(DrawerActions.openDrawer());
-            console.log(navigation.isFocused());
           }}
           icon={drawer !== 'closed' ? 'close-outline' : 'menu-outline'}
           position={'left'}
         />
-
-        <FloatingButton
-          action={() => action && action()}
-          icon="add-outline"
-          position={'right'}
-        />
+        {!save && (
+          <FloatingButton
+            action={() => action && action()}
+            icon="add-outline"
+            position={'right'}
+          />
+        )}
         {save && (
           <FloatingButton
             action={() => save()}

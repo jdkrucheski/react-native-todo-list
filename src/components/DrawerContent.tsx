@@ -25,19 +25,30 @@ export const DrawerContent = ({navigation}: Props) => {
                 name={item.icon}
                 color={theme.colors.notification}
                 size={22}
-                style={{marginRight: 8}}
+                style={{
+                  marginRight: 8,
+                }}
               />
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate(item.component);
                 }}>
-                <Text
-                  style={[
-                    globalStyles.subTitle,
-                    {color: theme.colors.notification},
-                  ]}>
-                  {item.name}
-                </Text>
+                <View
+                  key={item.name}
+                  style={{
+                    justifyContent: 'center',
+                    height: 50,
+                  }}>
+                  <Text
+                    style={[
+                      globalStyles.subTitle,
+                      {
+                        color: theme.colors.notification,
+                      },
+                    ]}>
+                    {item.name}
+                  </Text>
+                </View>
               </TouchableOpacity>
             </View>
           ))}
@@ -55,9 +66,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   itemContainner: {
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 15,
+    marginVertical: 10,
   },
   text: {
     fontSize: 18,

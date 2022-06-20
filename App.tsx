@@ -11,6 +11,8 @@ import {ThemeContext} from './src/context/theme/themeContext';
 import {getPreferencesService} from './src/services/preferences';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
+import i18n from './i18n.config';
+
 const AppNavigation = ({children}: any) => {
   const {theme, setColor} = useContext(ThemeContext);
   changeNavigationBarColor(theme.colors.primary, true, false);
@@ -19,9 +21,13 @@ const AppNavigation = ({children}: any) => {
     const fetchData = async () => {
       try {
         const res = await getPreferencesService();
-        typeof res !== 'string' && setColor(res.selectedColor);
+        if (typeof res !== 'string') {
+          setColor(res.selectedColor);
+          i18n.changeLanguage(res.selectedLanguage);
+        }
       } catch (err) {
         setColor('#8d9bce');
+        i18n.changeLanguage(i18n.language);
       }
     };
     fetchData();

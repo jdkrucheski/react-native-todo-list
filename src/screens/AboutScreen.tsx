@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Linking,
@@ -12,6 +13,7 @@ import {ThemeContext} from '../context/theme/themeContext';
 import {socialMedia} from '../data/menuItems';
 
 export const AboutScreen = () => {
+  const {t} = useTranslation();
   const {theme, globalStyles, accentColor} = useContext(ThemeContext);
 
   const loadInBrowser = (url: string) => {
@@ -25,7 +27,7 @@ export const AboutScreen = () => {
           source={require('../../android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png')}
         />
         <View style={styles.textContainer}>
-          <Text style={globalStyles.text}>Desarrollado por </Text>
+          <Text style={globalStyles.text}>{t('Desarrollado por')} </Text>
           <Text
             style={{
               fontSize: 18,

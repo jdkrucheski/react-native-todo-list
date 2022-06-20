@@ -1,5 +1,6 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useCallback, useContext, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {StatusBar, View} from 'react-native';
 import Animated, {FadeIn} from 'react-native-reanimated';
 import {Contend} from '../components/Contend';
@@ -13,6 +14,7 @@ import {useForm} from '../hooks/useForm';
 import {deleteList, editList, getLists, newList} from '../services/lists';
 
 export const ListsScreen = () => {
+  const {t} = useTranslation();
   const navigation = useNavigation();
   const {data, loading, setLists} = useContext(ListsContext);
   const {accentColor, globalStyles} = useContext(ThemeContext);
@@ -75,7 +77,7 @@ export const ListsScreen = () => {
     return (
       <Animated.View style={globalStyles.mainContainer} entering={FadeIn}>
         <StatusBar animated={true} backgroundColor={accentColor} />
-        <Header title="Categorías" showBackButton={false} />
+        <Header title={`${t('Categorías')}`} showBackButton={false} />
         <Contend
           action={() => {
             setShowModal({showModal: true, type: 'NEW'});
@@ -86,8 +88,8 @@ export const ListsScreen = () => {
                 id: l._id.toString(),
                 iconName: 'at-circle-outline',
                 title: l.name,
-                info: `Tareas completas: ${
-                  l.todos?.filter(t => t.status === 'closed').length
+                info: `${t('Tareas completas:')} ${
+                  l.todos?.filter(tarea => tarea.status === 'closed').length
                 }/${l.todos?.length}`,
               };
             })}
@@ -103,7 +105,7 @@ export const ListsScreen = () => {
             menuOptions={[
               {
                 id: 0,
-                name: 'Editar',
+                name: t('Editar'),
                 iconName: 'build-outline',
                 action: (id: string) => {
                   setToEditId(id);
@@ -114,7 +116,7 @@ export const ListsScreen = () => {
               },
               {
                 id: 1,
-                name: 'Eliminar',
+                name: t('Eliminar'),
                 iconName: 'trash-outline',
                 action: (id: string) => handleDelete(id),
               },
@@ -122,7 +124,7 @@ export const ListsScreen = () => {
           />
           <CustomModal
             type={type}
-            title="Nueva categoría"
+            title={t('Nueva categoría')}
             isVisible={showModal}
             closeModal={() => setShowModal({showModal: false, type: 'NEW'})}
             onCreate={(value: string) => handleNew(value)}
