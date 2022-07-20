@@ -35,7 +35,7 @@ I only compiled it for Android but you can try to compile it also for iOS.
 
 ## Next Steps
 
-- [ ] Add language support.
+- [x] Add language support.
 - [ ] Add data backup options.
-- [ ] Add customization support.
+- [x] Add customization support.
 - [ ] Add tests.
